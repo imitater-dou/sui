@@ -56,7 +56,7 @@ To create regulated currencies on Sui, the Currency Standard's Coin Registry pro
 Advantages of these regulatory features include:
 
 - **Centralized tracking:** Regulatory status is stored in the registry for easy discovery.
-- **Global pause support:** Pause or unpause functionality for emergency situations.
+- **Global pause support:** Regulated currencies include an `allow_global_pause` Boolean field. When set to `true`, the bearer of the `DenyCapV2` object for the coin type can use the `coin::deny_list_v2_enable_global_pause` function to pause coin activity indefinitely.
 - **Compliance tooling:** Integration with wallets, exchanges, and compliance systems.
 - **Migration support:** Seamless migration from legacy regulated coins.
 
@@ -74,7 +74,7 @@ To learn about available features, see [Currency Standard](/onchain-finance/fung
 
 ## Create regulated currency
 
-To use regulatory features, you will need to [create a currency](/onchain-finance/fungible-tokens/create-a-fungible-token). During currency initialization, use the `make_regulated()` function on the `CurrencyInitializer<T>` before calling `finalize()`. This adds deny list capabilities to the `Currency<T>` and tracks the regulatory status within the registry system:
+To use regulatory features, you will need to [create a currency](/onchain-finance/fungible-tokens/create-a-fungible-token). During currency initialization, use the `make_regulated()` function on the `CurrencyInitializer<T>` before calling `finalize()`. The `make_regulated` function takes a `bool` parameter controlling whether global pause is allowed; when `true`, the `DenyCapV2` holder can freeze all transfers of the token across the network. It adds deny list capabilities to the `Currency<T>` and tracks the regulatory status within the registry system:
 
 <details>
 <summary>
